@@ -1,0 +1,33 @@
+# Inventário Ansible
+
+vmweblb ansible_host=192.168.44.10
+vmweb2 ansible_host=192.168.44.11
+vmwebsockets ansible_host=192.168.44.20
+consul ansible_host=192.168.44.70
+vmbasedados ansible_host=192.168.44.40
+vmbasedados2 ansible_host=192.168.44.41
+lb01 ansible_host=192.168.44.35
+
+[web_servers]
+vmweblb
+vmweb2
+
+[consul_server]
+consul
+
+[all_nodes]
+vmweblb
+vmweb2
+vmwebsockets
+consul
+vmbasedados
+lb01
+
+[web_lb]
+vmweblb
+vmweb2
+lb01
+
+[databases_nodes]
+vmbasedados
+vmbasedados2

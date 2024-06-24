@@ -1,0 +1,25 @@
+---
+    - name: Update apt cache and install Nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+
+    - name: Remove Nginx default conf file
+      become: true
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Restart Nginx service
+      become: true
+      systemd:
+        name: nginx
+        state: restarted
+
+    - name: Run consul-template command
+      become: true
+      shell: 
+        consul-template -template "/etc/templates/load-balancer.conf.ctmpl:/etc/nginx/conf.d/load-balancer.conf:systemctl reload nginx"
+      async: 20
+      poll: 0 
